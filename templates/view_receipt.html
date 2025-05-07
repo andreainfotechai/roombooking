@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt - Hotel Maneck Residency</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .receipt {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .receipt-details {
+            margin-bottom: 20px;
+        }
+        .receipt-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .receipt-details th, .receipt-details td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .receipt-details th {
+            width: 30%;
+        }
+        .receipt-footer {
+            text-align: right;
+            margin-top: 30px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .btn {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-print {
+            background-color: #28a745;
+            margin-right: 10px;
+        }
+        .btn-print:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Hotel Maneck Residency</h2>
+        <div>
+            <span>Welcome, {{ session.username }}</span>
+            <a href="{{ url_for('logout') }}" style="margin-left: 20px;">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="receipt">
+            <div class="receipt-header">
+                <h2>HOTEL RECEIPT</h2>
+                <p>Receipt No: {{ receipt.id }}</p>
+            </div>
+
+            <div class="receipt-details">
+                <table>
+                    <tr>
+                        <th>Date:</th>
+                        <td>{{ receipt.date }}</td>
+                    </tr>
+                    <tr>
+                        <th>Room No:</th>
+                        <td>{{ receipt.room_no }}</td>
+                    </tr>
+                    <tr>
+                        <th>Room Type:</th>
+                        <td>{{ receipt.room_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Guest Name:</th>
+                        <td>{{ receipt.guest_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile No:</th>
+                        <td>{{ receipt.mobile_no }}</td>
+                    </tr>
+                    <tr>
+                        <th>Amount:</th>
+                        <td>Rs.{{ "%.2f"|format(receipt.amount) }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="receipt-footer">
+                <p>Thank you for staying with us!</p>
+                <p>Hotel Maneck Residency</p>
+            </div>
+        </div>
+
+        <div>
+            <button class="btn btn-print" onclick="window.print()">Print Receipt</button>
+            <a href="{{ url_for('dashboard') }}" class="btn">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
